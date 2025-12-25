@@ -53,7 +53,7 @@ class AuthController extends Controller
 
         if ($user && $valid) {
             Auth::login($user);
-            
+
             // Registrar inicio de sesión exitoso
             Auditoria::registrar(
                 'inicio_sesion',
@@ -62,11 +62,11 @@ class AuthController extends Controller
                 null,
                 ['user_agent' => $request->header('User-Agent')]
             );
-            
+
             if ($user->isAdmin()) {
                 return redirect()->route('admin.index');
             }
-            
+
             return redirect()->route('home');
         }
 
@@ -96,7 +96,7 @@ class AuthController extends Controller
             'nombre_usuario' => 'required|string|max:50|unique:usuarios,nombre_usuario',
             'nombre_completo' => 'required|string|max:100',
             'email' => 'required|email:rfc,dns|max:100|unique:usuarios,email',
-            'telefono' => 'nullable|string|max:15',
+            'telefono' => 'nullable|digits_between:9,15',
             'direccion' => 'nullable|string|max:200',
             'password' => [
                 'required',
@@ -118,6 +118,7 @@ class AuthController extends Controller
             'password.max' => 'La contraseña no puede tener más de 20 caracteres',
             'password.confirmed' => 'Las contraseñas no coinciden',
             'password.regex' => 'La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial (@$!%*?&)',
+            'telefono.digits_between' => 'Ingrese un número de teléfono válido (solo números, entre 9 y 15 dígitos)',
         ]);
 
         $user = User::create([
