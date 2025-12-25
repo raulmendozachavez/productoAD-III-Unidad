@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,6 @@
     <link rel="stylesheet" href="{{ asset('css/perfil-styles.css') }}">
     @stack('styles')
 </head>
-
 <body>
     <header class="header">
         <div class="container">
@@ -32,20 +30,20 @@
                         </a>
                     </li>
                     @auth
-                    <li><a href="{{ route('perfil') }}" class="{{ request()->routeIs('perfil') ? 'active' : '' }}">👤 {{ Auth::user()->nombre_completo }}</a></li>
-
-                    @if(Auth::user()->isAdmin())
-                    <li><a href="{{ route('admin.index') }}" style="background: linear-gradient(135deg, var(--brand-grad-start) 0%, var(--brand-grad-end) 100%); color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none;">⚙️ Admin</a></li>
-                    @endif
-
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                            @csrf
-                            <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; padding: 0; text-decoration: none;">Salir</button>
-                        </form>
-                    </li>
+                        <li><a href="{{ route('perfil') }}" class="{{ request()->routeIs('perfil') ? 'active' : '' }}">👤 {{ Auth::user()->nombre_completo }}</a></li>
+                        
+                        @if(Auth::user()->isAdmin())
+                            <li><a href="{{ route('admin.index') }}" style="background: linear-gradient(135deg, var(--brand-grad-start) 0%, var(--brand-grad-end) 100%); color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none;">⚙️ Admin</a></li>
+                        @endif
+                        
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                                @csrf
+                                <button type="submit" style="background: none; border: none; color: inherit; cursor: pointer; padding: 0; text-decoration: none;">Salir</button>
+                            </form>
+                        </li>
                     @else
-                    <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('login') }}">Login</a></li>
                     @endauth
                 </ul>
             </nav>
@@ -87,5 +85,4 @@
     <script src="{{ asset('js/carrito.js') }}"></script>
     @stack('scripts')
 </body>
-
 </html>
